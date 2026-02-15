@@ -8,26 +8,26 @@ screen = pygame.display.set_mode((640, 480))
 pygame.display.set_caption("Coin Collector")
 clock = pygame.time.Clock()
 
-# Load images
+
 player = pygame.image.load("player.jpg")
 player = pygame.transform.scale(player, (32, 32))
 
 coin = pygame.image.load("pixel_coin.png")
 coin = pygame.transform.scale(coin, (24, 24))
 
-# Player
+
 x, y = 100, 100
 speed = 4
 
-# Coin
+
 coin_x = random.randint(0, 600)
 coin_y = random.randint(0, 440)
 
-# Score
+
 score = 0
 high_score = 0
 
-# Load high score
+
 if os.path.exists("highscore.txt"):
     with open("highscore.txt", "r") as f:
         high_score = int(f.read())
@@ -44,24 +44,22 @@ while True:
             pygame.quit()
             sys.exit()
 
-    # INPUT
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a]: x -= speed
     if keys[pygame.K_d]: x += speed
     if keys[pygame.K_w]: y -= speed
     if keys[pygame.K_s]: y += speed
 
-    # Rectangles for collision
+
     player_rect = pygame.Rect(x, y, 32, 32)
     coin_rect = pygame.Rect(coin_x, coin_y, 24, 24)
 
-    # COLLISION
     if player_rect.colliderect(coin_rect):
         score += 1
         coin_x = random.randint(0, 600)
         coin_y = random.randint(0, 440)
 
-    # DRAW
+
     screen.fill((0, 180, 0))  # green background
     screen.blit(player, (x, y))
     screen.blit(coin, (coin_x, coin_y))
@@ -74,3 +72,4 @@ while True:
 
     pygame.display.flip()
     clock.tick(60)
+
